@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>threads</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+  --bg:#02070b;
+  --panel:#060f15;
+  --card:#0b1a22;
+  --line:#2a3b45;
+  --muted:#8fa3b0;
+  --orange:#ff4500;
+  --gray:#8a939a;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:#d7dadc;
+}
+
+/* ---------- TOP BAR ---------- */
+.topbar{
+  height:58px;
+  background:var(--panel);
+  display:flex;
+  align-items:center;
+  padding:0 22px;
+  border-bottom:1px solid var(--line);
+}
+
+.logo{
+  font-size:28px;
+  font-weight:700;
+  color:var(--orange);
+  margin-right:18px;
+}
+
+/* COMMUNITY TAB */
+.community-tab{
+  font-size:14px;
+  color:#d7dadc;
+  cursor:pointer;
+  padding-right:18px;
+  margin-right:18px;
+  border-right:1px solid var(--line); /* unfinished separator */
+}
+
+/* SEARCH */
+.search-wrapper{
+  flex:1;
+  display:flex;
+  justify-content:center;
+}
+
+.search-box{
+  display:flex;
+  align-items:center;
+  width:520px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:0 14px;
+}
+
+.search-icon{
+  color:var(--muted);
+  margin-right:10px;
+  font-size:16px;
+}
+
+.search-input{
+  flex:1;
+  padding:12px 6px;
+  background:transparent;
+  border:none;
+  color:#d7dadc;
+  font-size:15px;
+}
+
+.search-input::placeholder{color:var(--muted)}
+
+/* AUTH */
+.auth{
+  display:flex;
+  gap:10px;
+  margin-left:auto;
+}
+
+.btn{
+  padding:8px 18px;
+  border-radius:20px;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.login{background:var(--orange);color:#fff}
+.signup{background:#2c3338;color:#d7dadc}
+
+/* ---------- LAYOUT ---------- */
+.main{
+  display:grid;
+  grid-template-columns:240px 1fr 260px;
+}
+
+/* ---------- LEFT ---------- */
+.sidebar{
+  background:var(--panel);
+  padding:16px;
+  border-right:1px solid var(--line);
+}
+
+.sidebar h4{
+  font-size:12px;
+  color:var(--muted);
+  margin:22px 0 10px;
+}
+
+.item{
+  padding:9px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.item:hover{background:#0e2430}
+
+/* ---------- FEED ---------- */
+.feed-wrapper{display:flex;justify-content:center}
+.feed{max-width:780px;width:100%;padding:26px}
+
+/* ---------- POST ---------- */
+.post{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  margin-bottom:22px;
+  padding:24px;
+}
+
+.community{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.title{
+  font-size:22px;
+  font-weight:700;
+  margin:10px 0;
+}
+
+.description{
+  font-size:15px;
+  line-height:1.75;
+}
+
+/* ---------- ACTION BAR ---------- */
+.action-bar{
+  margin-top:18px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
+/* FAT UPVOTE */
+.vote{
+  font-size:28px;
+  font-weight:900;
+  cursor:pointer;
+  color:transparent;
+  -webkit-text-stroke:2.4px var(--gray);
+  padding:0 6px;
+}
+
+.vote.up{
+  -webkit-text-stroke:2.8px var(--orange);
+}
+
+.vote.down{
+  -webkit-text-stroke:2.4px var(--gray);
+}
+
+.vote:hover{transform:scale(1.15)}
+
+.share{
+  margin-left:auto;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+/* ---------- RIGHT ---------- */
+.rightbar{
+  padding:26px 16px;
+}
+
+.tag-box{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px;
+}
+
+.tag-box h4{
+  font-size:13px;
+  color:var(--muted);
+  margin:0 0 10px;
+}
+
+.tag{
+  background:#0e2430;
+  padding:8px 12px;
+  border-radius:6px;
+  font-size:13px;
+  color:#5fb3ff;
+  margin-bottom:8px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:900px){
+  .sidebar,.rightbar{display:none}
+  .main{grid-template-columns:1fr}
+  .search-box{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">threads</div>
+
+  <div class="community-tab">Communities</div>
+
+  <div class="search-wrapper">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" placeholder="Search Threads">
+    </div>
+  </div>
+
+  <div class="auth">
+    <button class="btn login">Log In</button>
+    <button class="btn signup">Sign Up</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- LEFT -->
+  <div class="sidebar">
+    <div class="item">🏠 Home</div>
+    <div class="item">🔥 Popular</div>
+    <div class="item">⚙ Settings</div>
+
+    <h4>POPULAR COMMUNITIES</h4>
+    <div class="item">r/CollegeLife</div>
+    <div class="item">r/Programming</div>
+    <div class="item">r/Students</div>
+    <div class="item">r/CareerAdvice</div>
+    <div class="item">r/NightThoughts</div>
+    <div class="item">r/DarkMode</div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="feed-wrapper">
+    <div class="feed" id="feed"></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="rightbar">
+    <div class="tag-box">
+      <h4>POPULAR TAGS</h4>
+      <div class="tag">#CollegeLife</div>
+      <div class="tag">#Programming</div>
+      <div class="tag">#Students</div>
+      <div class="tag">#Career</div>
+      <div class="tag">#Exams</div>
+      <div class="tag">#Sleep</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+fetch("http://localhost:5000/posts")
+  .then(r=>r.json())
+  .then(posts=>{
+    const feed=document.getElementById("feed");
+    posts.forEach(p=>{
+      const post=document.createElement("div");
+      post.className="post";
+      post.innerHTML=`
+        <div class="community">${p.community}</div>
+        <div class="title">${p.title}</div>
+        <div class="description">${p.description}</div>
+        <div class="action-bar">
+          <span class="vote up">⬆</span>
+          <span class="vote down">⬇</span>
+          <span class="vote">💬</span>
+          <span class="share">🔗 Share</span>
+        </div>
+      `;
+      feed.appendChild(post);
+    });
+  });
+</script>
+
+</body>
+</html>
