@@ -13,7 +13,7 @@ This project is a community-based discussion platform that allows users to share
 2. Open the project folder in Command Prompt / Terminal
 3. Run the following commands:
 
-   npm install
+   npm install (one by one)
    node server.js
 
 4. Open `index.html` in any modern web browser
